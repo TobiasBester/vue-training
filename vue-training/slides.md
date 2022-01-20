@@ -279,20 +279,62 @@ layout: two-cols
 # Single File Components
 
 - ### Provide structure for component content
-- ### File extension should be `.vue`
+- ### File extension should be ".vue`
 
- ```vue
+---
+layout: two-cols
+---
+
+# Declarative Rendering and Reactivity
+
+- #### Vue's template syntax allows us to extend HTML with JavaScript
+
+```vue
 <template>
-  <!-- Vue-flavored HTML -->
+  <h1>Count: {{ counter + 1 }}</h1>
 </template>
-
-<script lang="ts">
-  // Regular JS (or lang)
-  // Use "setup" tag in Vue 3.2
-</script>
-
-<style scoped lang="scss">
-  /* Regular CSS (or lang)  */
-  /* Use "scoped" to only apply CSS to this component */
-</style>
 ```
+
+- #### We can create **reactive data** and use it in our template
+- #### Reactive data variables trigger updates upon change
+
+```text {none|all}
+ TODO: In HomeView.vue, add a `ref` named `numCorrect`
+ with a value of 0. Replace the "0" text in the template
+ under "Correct:" with `numCorrect`
+```
+
+::right::
+
+### 2️⃣
+
+```vue
+<script>
+  export default {
+    data: () => ({
+      counter: 0
+    })
+  }
+</script>
+```
+
+### 3️⃣
+
+```vue
+<script setup>
+  import { ref, reactive } from 'vue'
+  
+  const data = reactive({
+    count: 0
+  })
+  console.log(data.count)     // 0
+  // OR
+  const counter = ref(0)
+  console.log(counter.value)  // 0
+</script>
+```
+
+---
+
+asdas
+

@@ -25,7 +25,7 @@
       <div class="flex flex-row justify-center m-4 p-4">
         <div class="p-4 m-4 border border-4 rounded-xl border-emerald-500 text-center">
           <span class="text-2xl">Correct: </span>
-          <div class="text-4xl">0</div>
+          <div class="text-4xl">{{ numCorrect }}</div>
         </div>
         <div class="p-4 m-4 border border-4 rounded-xl border-rose-500 text-center">
           <span class="text-2xl">Incorrect: </span>
@@ -44,4 +44,7 @@
 
 <script setup lang="ts">
 import BaseBtn from '@/components/base/BaseBtn.vue'
+import { ref } from 'vue'
+
+const numCorrect = ref(0)
 </script>
