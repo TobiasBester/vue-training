@@ -29,7 +29,7 @@
         </div>
         <div class="p-4 m-4 border border-4 rounded-xl border-rose-500 text-center">
           <span class="text-2xl">Incorrect: </span>
-          <div class="text-4xl">0</div>
+          <div class="text-4xl">{{ numIncorrect }}</div>
         </div>
         <div
           class="p-4 m-4 border border-4 rounded-xl border-orange-300 text-center"
@@ -47,4 +47,5 @@ import BaseBtn from '@/components/base/BaseBtn.vue'
 import { ref } from 'vue'
 
 const numCorrect = ref(0)
+const numIncorrect = ref(0)
 </script>
