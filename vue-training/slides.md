@@ -258,3 +258,41 @@ layout: two-cols
 - ### Open `localhost:3000`
 
 ---
+
+# Project Structure
+
+- ##### `index.html`: App entry point
+- ##### `package.json` and config files
+- #### `/public` - Served at web page root
+  - Used for browser icons, robots.txt, etc.
+- #### `/src` - Where the code at
+  - `main.ts` - Where Vue is initialized and mounted. Also, plugins and libraries
+  - `App.vue` - Root Vue component. Top level layout, styles, and logic
+  - `/assets` - Static content, e.g. images and styles
+  - `/views` - Page-level components - ideally one per route
+  - `/components` - Used within views, composable, re-usable, simple/complex
+  - `/router/index.ts` - Routing config
+  - Other folders: `/composables`, `/store`, `/models`
+
+---
+
+# Single File Components
+
+- ### Provide structure for component content
+- ### File extension should be `.vue`
+
+ ```vue
+<template>
+  <!-- Vue-flavored HTML -->
+</template>
+
+<script lang="ts">
+  // Regular JS (or lang)
+  // Use "setup" tag in Vue 3.2
+</script>
+
+<style scoped lang="scss">
+  /* Regular CSS (or lang)  */
+  /* Use "scoped" to only apply CSS to this component */
+</style>
+```
