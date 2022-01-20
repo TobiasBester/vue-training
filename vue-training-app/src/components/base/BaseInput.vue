@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
 
   const props = defineProps ({
     modelValue: {
@@ -28,11 +28,15 @@
   })
   const emit = defineEmits(['update:modelValue'])
 
-  const outValue = ref(props.modelValue)
+  const outValue = ref('')
 
   const onInput = (_) => {
-    emit('update:modelValue', outValue)
+    emit('update:modelValue', outValue.value)
   }
+
+  watch(() => props.modelValue, newVal => {
+    outValue.value = newVal
+  })
 
 </script>
 
