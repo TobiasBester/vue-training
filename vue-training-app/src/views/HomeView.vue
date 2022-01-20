@@ -3,6 +3,7 @@
     <div class="flex flex-col justify-center align-middle w-75">
       <div class="flex flex-row justify-center p-4">
         <base-btn
+          v-if="timeRemaining === PLAY_TIME_SECONDS"
           class="w-1/3 mx-2"
           focus
           color="green"
@@ -11,6 +12,7 @@
           Start
         </base-btn>
         <base-btn
+          v-else
           class="w-1/3 mx-2"
           focus
           color="red"
