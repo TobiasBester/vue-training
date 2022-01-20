@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="p-4 m-4 rounded-md bg-slate-200 text-black">
-          <base-btn color="green" class="p-8" @click="incCorrect">CLICK ME</base-btn>
+          <base-btn color="green" class="p-8 my-2" @click="incCorrect">CLICK ME</base-btn>
+          <base-btn color="red" class="p-8 my-2" @click="incIncorrect">CLICK ME</base-btn>
         </div>
       </div>
       <div class="flex flex-row justify-center m-4 p-4">
@@ -47,7 +48,7 @@
           class="p-4 m-4 border border-4 rounded-xl border-orange-300 text-center"
         >
           <span class="text-2xl">Score: </span>
-          <div class="text-4xl">0</div>
+          <div class="text-4xl">{{ score }}</div>
         </div>
       </div>
       <div class="flex flex-row justify-center align-start rounded-md border-2 p-4">
@@ -68,7 +69,7 @@
 
 <script setup lang="ts">
 import BaseBtn from '@/components/base/BaseBtn.vue'
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import useTimer from '@/composables/useTimer'
 
@@ -79,6 +80,19 @@ const playerName = ref('')
 const incCorrect = () => {
   numCorrect.value += 1
 }
+const incIncorrect = () => {
+  numIncorrect.value += 1
+}
+const score = computed(() => numCorrect.value - (5 * numIncorrect.value))
+
+watch(() => score.value, (newVal) => {
+  if (newVal < 0) {
+    console.log('GAME OVER')
+  }
+  if (newVal > 100) {
+    console.log('GO OFF KING/QUEEN')
+  }
+})
 
 const PLAY_TIME_SECONDS = 20
 const { reset, timeRemaining, countDownTimer } = useTimer(PLAY_TIME_SECONDS)
