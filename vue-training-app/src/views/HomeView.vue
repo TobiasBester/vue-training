@@ -51,9 +51,10 @@
       <div class="flex flex-row justify-center align-start rounded-md border-2 p-4">
         <base-input
           label="Player Name"
+          v-model="playerName"
         />
         <div class="mx-4 text-2xl text-white">
-          Score: 0
+          Score: {{ playerName }}
         </div>
         <base-btn color="gold">
           SAVE
@@ -71,6 +72,7 @@ import useTimer from '@/composables/useTimer'
 
 const numCorrect = ref(0)
 const numIncorrect = ref(0)
+const playerName = ref('')
 
 const incCorrect = () => {
   numCorrect.value += 1
