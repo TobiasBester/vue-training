@@ -49,7 +49,9 @@
         </div>
       </div>
       <div class="flex flex-row justify-center align-start rounded-md border-2 p-4">
-        <base-input label="Player Name" />
+        <base-input
+          label="Player Name"
+        />
         <div class="mx-4 text-2xl text-white">
           Score: 0
         </div>
@@ -64,8 +66,8 @@
 <script setup lang="ts">
 import BaseBtn from '@/components/base/BaseBtn.vue'
 import { ref } from 'vue'
-import BaseInput from '@/components/base/BaseInput.vue';
-import useTimer from '@/composables/useTimer';
+import BaseInput from '@/components/base/BaseInput.vue'
+import useTimer from '@/composables/useTimer'
 
 const numCorrect = ref(0)
 const numIncorrect = ref(0)
