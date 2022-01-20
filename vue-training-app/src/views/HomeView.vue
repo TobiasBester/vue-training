@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="p-4 m-4 rounded-md bg-slate-200 text-black">
-          <base-btn color="green" class="p-8">CLICK ME</base-btn>
+          <base-btn color="green" class="p-8" @click="incCorrect">CLICK ME</base-btn>
         </div>
       </div>
       <div class="flex flex-row justify-center m-4 p-4">
@@ -48,4 +48,8 @@ import { ref } from 'vue'
 
 const numCorrect = ref(0)
 const numIncorrect = ref(0)
+
+const incCorrect = () => {
+  numCorrect.value += 1
+}
 </script>
