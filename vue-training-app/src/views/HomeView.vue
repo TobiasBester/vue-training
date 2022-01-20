@@ -2,10 +2,20 @@
   <div class="container my-4">
     <div class="flex flex-col justify-center align-middle w-75">
       <div class="flex flex-row justify-center p-4">
-        <base-btn class="w-1/3 mx-2" focus color="green">
+        <base-btn
+          class="w-1/3 mx-2"
+          focus
+          color="green"
+          @click="countDownTimer"
+        >
           Start
         </base-btn>
-        <base-btn class="w-1/3 mx-2" focus color="red">
+        <base-btn
+          class="w-1/3 mx-2"
+          focus
+          color="red"
+          @click="reset"
+        >
           Stop
         </base-btn>
       </div>
@@ -15,7 +25,7 @@
             Time Left
           </span>
           <div class="text-4xl text-bold text-white">
-            30
+            {{ timeRemaining }}
           </div>
         </div>
         <div class="p-4 m-4 rounded-md bg-slate-200 text-black">
@@ -38,6 +48,15 @@
           <div class="text-4xl">0</div>
         </div>
       </div>
+      <div class="flex flex-row justify-center align-start rounded-md border-2 p-4">
+        <base-input label="Player Name" />
+        <div class="mx-4 text-2xl text-white">
+          Score: 0
+        </div>
+        <base-btn color="gold">
+          SAVE
+        </base-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +64,8 @@
 <script setup lang="ts">
 import BaseBtn from '@/components/base/BaseBtn.vue'
 import { ref } from 'vue'
+import BaseInput from '@/components/base/BaseInput.vue';
+import useTimer from '@/composables/useTimer';
 
 const numCorrect = ref(0)
 const numIncorrect = ref(0)
@@ -52,4 +73,8 @@ const numIncorrect = ref(0)
 const incCorrect = () => {
   numCorrect.value += 1
 }
+
+const PLAY_TIME_SECONDS = 20
+const { reset, timeRemaining, countDownTimer } = useTimer(PLAY_TIME_SECONDS)
+
 </script>
