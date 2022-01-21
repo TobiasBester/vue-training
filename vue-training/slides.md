@@ -117,7 +117,7 @@ layout: two-cols
 
 # Vue 2
 
-- ## v2.6: Biggest market share across versions
+- ## v2.6: Biggest market share across versions + default
 - ## Options API only
 - ## Imperfect TS support
 - ## Webpack for dev and prod
@@ -299,9 +299,9 @@ layout: two-cols
 - #### Reactive data variables trigger updates upon change
 
 ```text {none|all}
- TODO: In HomeView.vue, add a `ref` named `numCorrect`
- with a value of 0. Replace the "0" text in the template
- under "Correct:" with `numCorrect`
+TODO: In HomeView.vue, add a `ref` named `numIncorrect`
+with a value of 0. Replace the "0" text in the template
+under "Incorrect:" with `numIncorrect`'s value
 ```
 
 ::right::
@@ -335,6 +335,462 @@ layout: two-cols
 ```
 
 ---
+layout: two-cols
+---
 
-asdas
+# Attribute Bindings
 
+- #### Like with text interpolation, we can bind attributes to reactive data
+
+```html
+  <div v-bind:id="dynamicId">
+    Content of element {{ dynamicId }}
+  </div>
+```
+
+- #### The `v-bind` directive can be replaced with the shorthand:
+
+```html
+  <div :id="dynamicId">
+  Content of element {{ dynamicId }}
+  </div>
+```
+
+::right::
+
+- #### Data can be bound for any element's attributes, props, class, and style
+
+```html
+<div
+  :class="hasError ? 'form-error' : 'form-ok'"
+/>
+```
+
+---
+layout: two-cols
+---
+
+# Methods and Event Listeners
+
+- #### Functions can be defined in the script block and used within it
+
+### 2️⃣
+
+```vue
+<script>
+  export default {
+    data: () => ({ counter: 0 }),
+    methods: {
+      increment () {
+        this.counter += 1 // Notice use of "this"
+      },
+      doubleInput (num) {
+        return num * 2
+      }
+    }
+  }
+</script>
+```
+
+::right::
+
+### 3️⃣
+
+```vue
+<script setup>
+  import { ref } from 'vue'
+
+  const counter = ref(0)
+
+  const increment = () => {
+    counter.value += 1
+  }
+  const doubleInput = (num) => num * 2
+</script>
+```
+
+- #### Functions can be bound to event listeners
+
+```html
+  <button v-on:click="increment">
+    Increase me
+  </button>
+
+  <input @input="recordKeystroke" />
+```
+
+```text {none|all}
+TODO: Create method `incCorrect` which increases
+numCorrect by one. Bind the method to the button
+with text "CLICK ME"
+```
+
+---
+
+## Checkout branch `/1-Reactive-data-in-template`
+
+---
+layout: two-cols
+---
+
+# Form Bindings
+
+- #### Combine `v-bind` and `v-on` to create two-way bindings with inputs
+
+```vue
+<template>
+  <input :value="text" @input="onInput" />
+</template>
+
+<script setup>
+  const text = ref('')
+  const onInput = (e) => {
+    text.value = e.target.value
+  }
+</script>
+```
+
+::right::
+
+- #### Can be replaced with `v-model` - syntactic sugar
+
+```html
+<input v-model="text" />
+```
+
+- #### Element input will update the `text` value
+- #### External `text` value changes will reflect on the input
+
+```text {none|all}
+TODO: Add ref named `playerName` with initial
+value '' and two-way bind it to the
+"Player Name" base-input with `v-model`
+```
+
+---
+
+# Conditional Rendering
+
+- #### Render a component if a certain condition is met, or else
+
+```vue
+<template>
+  <h1 v-if="mark > 80">DISTINCTION</h1>
+  <h1 v-else-if="mark >= 50">WELL DONE</h1>
+  <h1 v-else>YOU FAILED 😡</h1>
+</template>
+```
+
+<br />
+
+```text {none|all}
+TODO: Render the Start button only if `timeRemaining` equals PLAY_TIME_SECONDS, else,
+render the Stop button
+```
+
+---
+
+# List Rendering
+
+- #### Data arrays can be rendered in a list using `v-for`
+- #### `key` attribute is required for Vue to keep track of items
+
+```vue
+<template>
+  <tr v-for="(score, idx) in highScores" :key="idx">
+    <td>{{ score.rank }}</td>
+    <td>{{ score.playerName }}</td>
+    <td>{{ score.score }}</td>
+  </tr>
+</template>
+```
+
+- #### Lists are re-rendered when the reactive array is mutated
+
+---
+
+## Checkout branch `/2-Form-bindings-and-rendering`
+
+---
+layout: two-cols
+---
+
+# Computed Properties
+
+- #### Like a `ref` variable computed from other data
+- #### Will track changes of dependencies and re-compute
+- #### Will trigger updates if its value changes
+
+### 2️⃣
+```javascript
+export default {
+  // ...
+  computed: {
+    triple () {
+      return this.count * 3
+    },
+    hextuple () {
+      return this.triple * 2
+    },
+    filteredList () {
+      return this.scores.filter(s => s.score > 100)
+    }
+  }
+}
+```
+
+::right::
+
+### 3️⃣
+```vue
+<script setup>
+  import { computed } from 'vue'
+  //...
+  const triple = computed(() => count.value * 3)
+  const hextuple = computed(() => triple.value * 2)
+</script>
+```
+
+```text {none|all}
+TODO:
+  Copy "CLICK ME" button and paste it below original
+  Change color of new button to "red"
+  Add method `incIncorrect` which add 1 to `numIncorrect`
+  Bind new button click to 'incIncorrect'
+  Add computed prop  `score` with formula
+    score = numCorrect - (numIncorrect * 5)
+  Render `score` value under "Score:" block
+```
+
+---
+
+# Lifecycle Hooks
+
+- #### Functions which are run at different stages of a component's lifecycle
+
+<img
+  src="https://dltqhkoxgn1gx.cloudfront.net/img/posts/how-to-use-lifecycle-hooks-in-vue3-1.png"
+  alt="Vue Lifecycle"
+  width="700"
+/>
+
+---
+
+# Lifecycle Hooks
+
+### 2️⃣
+```javascript
+export default {
+  // ...
+  created () {
+    console.log('On created')
+  },
+  mounted () {
+    console.log('On mounted')
+  }
+}
+```
+
+### 3️⃣
+```vue
+<script setup>
+  import { onMounted } from 'vue'
+  
+  console.log('On created')
+  
+  onMounted(() => {
+    console.log('On mounted')
+  })
+</script>
+```
+
+---
+layout: two-cols
+---
+
+# Watchers
+
+- #### Run a method every time a data value changes
+- #### Access to old and new value
+- #### Nested objects can be shallow or deep-watched
+- #### Useful for debugging
+
+### 2️⃣
+```javascript
+export default {
+  // ...
+  watch: {
+    highScores (newVal, oldVal) {
+      const sizeDiff = newVal.length - oldVal.length
+      console.log(`${sizeDiff} more scores added`)
+    }
+  }
+}
+```
+::right::
+
+
+### 3️⃣
+```vue
+<script setup>
+  import { watch } from 'vue'
+  // ...
+  watch(highScores, (newVal, oldVal) => {
+    // ...
+  })
+</script>
+```
+
+- #### Wrapped data needs to use a function to specify watched variable:
+```javascript
+watch(() => counter.value, (newVal) => {/*...*/})
+```
+
+```text {none|all}
+TODO: Add watcher to `score` value
+ - If new value is < 0, console log 'GAME OVER'
+ - If new value is > 100, console log 'GO OFF KING/QUEEN'
+```
+
+---
+
+## Checkout branch `/3-Computed-properties`
+
+---
+
+# Components
+
+- #### Building blocks of pages
+- #### Each component encapsulates design, logic, and its own state
+
+### 2️⃣
+```vue
+<template>
+  <base-btn />
+</template>
+
+<script>
+  import BaseBtn from '@/components/base/BaseBtn.vue'
+  
+  export default {
+    components: {
+      BaseBtn
+    }
+  }
+</script>
+```
+
+---
+layout: two-cols
+---
+
+# Props
+
+- #### Used to pass data from parent to child component
+- #### Prop data type can be specified
+  - Object, String, Number, Array, Boolean, Function, Promise
+
+### 2️⃣
+```javascript
+  export default {
+    props: {
+      label: {
+        type: String,
+        default: 'Player Name'
+      },
+      items: {
+        type: [Array, String],
+        required: true,
+        validator: (val) => val.length > 0
+      }
+    }
+  }
+```
+
+:: right ::
+
+### 3️⃣
+```vue
+<script setup>
+  const props = defineProps({/*...*/})
+</script>
+```
+
+---
+layout: two-cols
+---
+
+# Emits
+
+- #### Component data directions
+  - Props going down
+  - Emits going up
+- #### Emits are used to pass data up from a child to a parent component
+- #### Emits are received by the parent as events
+
+```vue
+<template>
+  <!--ChildComponent.vue-->
+  <button @click="$emit('going-up', 'data')">
+    EMIT
+  </button>
+</template>
+```
+```vue
+<template>
+  <!--ParentComponent.vue-->
+  <child-component @going-up="logData" />
+</template>
+```
+
+::right::
+
+### 2️⃣
+```vue
+<script>
+  export default {
+    methods: {
+      sendDataUp () {
+        this.$emit('going-up', this.value)
+      }
+    }
+  }
+</script>
+```
+
+---
+
+# State Management
+
+- #### Vuex is the standard library
+- #### Pinia is the new, recommended library
+
+<img src="/public/vue-stores.png" alt="Components and a Store" />
+
+---
+
+# Composition Functions
+
+- #### Act exactly like components minus the template and styles
+- #### Can accept params
+- #### Can keep instance and global state
+- #### Should be small and specific
+
+```javascript
+export default function (name) {
+  const internalName = ref(name)
+  const uppercase = computed(() => name.toUpperCase())
+  
+  return { upperCase }
+}
+```
+
+---
+
+# Vue Ecosystem
+
+- #### Routing: [Vue Router](https://router.vuejs.org/)
+- #### State Management: [Vuex](https://vuex.vuejs.org/) or [Pinia](https://pinia.vuejs.org/)
+- #### Component Testing: [Testing Library - Vue](https://testing-library.com/docs/vue-testing-library/intro/)
+- #### High-Level Framework: [Nuxt](https://v3.nuxtjs.org/)
+- #### UI Component Libraries: [Vuetify](https://vuetifyjs.com/en/) and [Quasar](https://quasar.dev/)
