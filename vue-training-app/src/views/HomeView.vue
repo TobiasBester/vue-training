@@ -36,16 +36,13 @@
           class="p-4 m-4 rounded-md bg-slate-200 text-black flex flex-row"
         >
           <div class="rounded-md p-2 m-2 border border-2 border-black">
-            <press-prompt v-if="nextLetter === 'L'" letter="L" @correct="incCorrect" @incorrect="incIncorrect" />
-            <blank-prompt v-else />
+            <press-prompt letter="L" />
           </div>
           <div class="rounded-md p-2 m-2 border border-2 border-black">
-            <press-prompt v-if="nextLetter === 'D'" letter="D" @correct="incCorrect" @incorrect="incIncorrect" />
-            <blank-prompt v-else />
+            <press-prompt letter="L"  />
           </div>
           <div class="rounded-md p-2 m-2 border border-2 border-black">
-            <press-prompt v-if="nextLetter === 'R'" letter="R" @correct="incCorrect" @incorrect="incIncorrect" />
-            <blank-prompt v-else />
+            <press-prompt letter="L" />
           </div>
         </div>
       </div>
