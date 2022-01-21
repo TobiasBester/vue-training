@@ -20,7 +20,7 @@ drawings:
 
 # Getting To Know Vue
 
-Tobias Bester | EPI-USE Labs | 2022 | vue-training.vercel.app
+Tobias Bester | EPI-USE Labs | 2022 | vue-training-silk.vercel.app
 
 <div class="abs-br m-6 flex gap-2">
   <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
@@ -45,12 +45,12 @@ layout: intro
 
 ---
 layout: image-left
-image: /public/what-is-vue.png
+image: /what-is-vue.png
 ---
 
 # What IS Vue 🤨?
 
-<img src="/public/vue-logo.png" alt="Vue Logo" width="200" />
+<img src="/vue-logo.png" alt="Vue Logo" width="200" />
 
 <h2>
   A <span class="text-lime-100">versatile</span> <span class="text-green-200">JavaScript framework</span> which
@@ -59,7 +59,7 @@ image: /public/what-is-vue.png
 
 ---
 layout: image-right
-image: /public/oh-that-is-vue.png
+image: /oh-that-is-vue.png
 ---
 
 # What IS Vue 🤨?
@@ -75,7 +75,7 @@ layout: image
 
 # Companies using Vue
 
-<img src="/public/logos.png" alt="Logos of companies using Vue" width="600" />
+<img src="/logos.png" alt="Logos of companies using Vue" width="600" />
 
 ---
 
@@ -94,7 +94,7 @@ layout: image
 ---
 
 <div class="justify-center">
-  <img src="/public/opinion.jpg" alt="Very funny" width="450" />
+  <img src="/opinion.jpg" alt="Very funny" width="450" />
 </div>
 
 ---
@@ -109,7 +109,7 @@ layout: image
 
 # History of Vue
 
-<img src="/public/vue-history.png" alt="Vue History" width="600" />
+<img src="/vue-history.png" alt="Vue History" width="600" />
 
 ---
 layout: two-cols
@@ -241,7 +241,7 @@ layout: two-cols
 
 # Vue Docs
 
-<img src="/public/vue-docs.png" alt="Vue Docs" width="750" />
+<img src="/vue-docs.png" alt="Vue Docs" width="750" />
 
 ---
 
@@ -765,7 +765,7 @@ layout: two-cols
 - #### Vuex is the standard library
 - #### Pinia is the new, recommended library
 
-<img src="/public/vue-stores.png" alt="Components and a Store" />
+<img src="/vue-stores.png" alt="Components and a Store" />
 
 ---
 
