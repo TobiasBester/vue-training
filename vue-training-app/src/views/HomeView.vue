@@ -7,7 +7,8 @@
           class="w-1/3 mx-2"
           focus
           color="green"
-          @click="countDownTimer"
+          :disabled="startedTimer"
+          @click="startGame"
         >
           Start
         </base-btn>
@@ -16,7 +17,7 @@
           class="w-1/3 mx-2"
           focus
           color="red"
-          @click="reset"
+          @click="resetGame"
         >
           Stop
         </base-btn>
@@ -30,9 +31,22 @@
             {{ timeRemaining }}
           </div>
         </div>
-        <div class="p-4 m-4 rounded-md bg-slate-200 text-black">
-          <base-btn color="green" class="p-8 my-2" @click="incCorrect">CLICK ME</base-btn>
-          <base-btn color="red" class="p-8 my-2" @click="incIncorrect">CLICK ME</base-btn>
+        <div
+          v-if="startedTimer"
+          class="p-4 m-4 rounded-md bg-slate-200 text-black flex flex-row"
+        >
+          <div class="rounded-md p-2 m-2 border border-2 border-black">
+            <press-prompt v-if="nextLetter === 'L'" letter="L" @correct="incCorrect" @incorrect="incIncorrect" />
+            <blank-prompt v-else />
+          </div>
+          <div class="rounded-md p-2 m-2 border border-2 border-black">
+            <press-prompt v-if="nextLetter === 'D'" letter="D" @correct="incCorrect" @incorrect="incIncorrect" />
+            <blank-prompt v-else />
+          </div>
+          <div class="rounded-md p-2 m-2 border border-2 border-black">
+            <press-prompt v-if="nextLetter === 'R'" letter="R" @correct="incCorrect" @incorrect="incIncorrect" />
+            <blank-prompt v-else />
+          </div>
         </div>
       </div>
       <div class="flex flex-row justify-center m-4 p-4">
@@ -72,22 +86,28 @@ import BaseBtn from '@/components/base/BaseBtn.vue'
 import { computed, ref, watch } from 'vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import useTimer from '@/composables/useTimer'
+import PressPrompt from '@/components/game/PressPrompt.vue';
+import BlankPrompt from '@/components/game/BlankPrompt.vue';
 
 const numCorrect = ref(0)
 const numIncorrect = ref(0)
 const playerName = ref('')
+const nextLetter = ref('L')
+const startedTimer = ref(false)
 
 const incCorrect = () => {
   numCorrect.value += 1
+  setNextLetter()
 }
 const incIncorrect = () => {
   numIncorrect.value += 1
+  setNextLetter()
 }
 const score = computed(() => numCorrect.value - (5 * numIncorrect.value))
 
 watch(() => score.value, (newVal) => {
   if (newVal < 0) {
-    console.log('GAME OVER')
+    resetGame()
   }
   if (newVal > 100) {
     console.log('GO OFF KING/QUEEN')
@@ -96,5 +116,33 @@ watch(() => score.value, (newVal) => {
 
 const PLAY_TIME_SECONDS = 20
 const { reset, timeRemaining, countDownTimer } = useTimer(PLAY_TIME_SECONDS)
+
+const startGame = () => {
+  startedTimer.value = true
+  countDownTimer()
+  setNextLetter()
+  numCorrect.value = 0
+  numIncorrect.value = 0
+}
+
+const resetGame = () => {
+  startedTimer.value = false
+  reset()
+}
+
+watch(() => timeRemaining.value, newVal => {
+  if (newVal === PLAY_TIME_SECONDS) {
+    startedTimer.value = false
+  }
+})
+
+const setNextLetter = () => {
+  const random = Math.random()
+  if (random < 0.33) {
+    nextLetter.value = 'L'
+    return
+  }
+  nextLetter.value = random < 0.66 ? 'D' : 'R'
+}
 
 </script>
