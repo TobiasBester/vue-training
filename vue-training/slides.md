@@ -201,6 +201,7 @@ layout: two-cols
 
 - ### Install NodeJS 14+
 - ### Clone Repo:
+  - `git clone https://git.epiuse.co.za/graduates2023/vue-training.git` OR
   - `git clone https://github.com/TobiasBester/vue-training.git`
 - ### Install dependencies
   - #### Go to project directory
