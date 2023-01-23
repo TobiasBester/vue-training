@@ -20,7 +20,7 @@ drawings:
 
 # Getting To Know Vue
 
-Tobias Bester | EPI-USE Labs | 2022 | vue-training-silk.vercel.app
+Tobias Bester | EPI-USE Labs | 2023 | vue-training-silk.vercel.app
 
 <div class="abs-br m-6 flex gap-2">
   <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
@@ -45,7 +45,7 @@ layout: intro
 
 ---
 layout: image-left
-image: /what-is-vue.png
+image: /what-is-vue-new.jpg
 ---
 
 # What IS Vue 🤨?
@@ -65,7 +65,7 @@ image: /oh-that-is-vue.png
 # What IS Vue 🤨?
 
 - <h3 class="text-lime-100"> Uses modern JavaScript features and has full TS support </h3>
-- <h3 class="text-green-200"> Use it for media exhibits, ecommerce. and enterprise solutions </h3>
+- <h3 class="text-green-200"> Use it for media exhibits, ecommerce, and enterprise solutions </h3>
 - <h3 class="text-emerald-300"> Builds on top of standard HTML, CSS, and JS with BTS magic </h3>
 - <h3 class="text-teal-400"> Optimized rendering system and tooling for development and production </h3>
 
@@ -75,17 +75,18 @@ layout: image
 
 # Companies using Vue
 
-<img src="/logos.png" alt="Logos of companies using Vue" width="600" />
+<img src="/logos-new.png" alt="Logos of companies using Vue" width="600" />
 
 ---
 
 # Vue vs other JS frameworks
 
-- ## [NPM](https://www.npmtrends.com/@angular/core-vs-react-vs-vue-vs-svelte)
+- ## [State of JS 2022](https://2022.stateofjs.com/en-US/libraries/front-end-frameworks/#front_end_frameworks_experience_linechart)
 - ## React:
   - Also VDOM-based, with reactive, composable components, and an adoptable ecosystem
   - JSX render functions vs template-based with JSX support
   - Wealth of support libraries vs recommended ecosystem
+  - Next.js vs Nuxt
 - ## Angular:
   - Template syntax similarities (`*ngFor vs v-for`)
   - All encompassing framework vs scale up if necessary
@@ -117,7 +118,7 @@ layout: two-cols
 
 # Vue 2
 
-- ## v2.6: Biggest market share across versions + default
+- ## v2.6: Biggest market share across versions
 - ## Options API only
 - ## Imperfect TS support
 - ## Webpack for dev and prod
@@ -130,8 +131,7 @@ layout: two-cols
 - ## Built from ground up using TS
 - ## New Composition API
 - ## Vite
-- ## Recently quite volatile
-- ## Ecosystem is still catching up
+- ## Package and ecosystem is stabilising
 
 ---
 layout: two-cols
@@ -156,7 +156,7 @@ layout: two-cols
       increment () {
         this.count++
       },
-      calculateSun () {
+      calculatePowerOfSun () {
         externalModule.calculateSun(this.count)
       }
     }
@@ -187,92 +187,46 @@ layout: two-cols
 ```
 
 ---
-layout: two-cols
----
 
-# Composition API Setup function
+# Docs and Resources
 
-```vue
-<script>
-  import { defineComponent, reactive, computed } from 'vue'
-  // import useCalculator from ...  
-  
-  export default defineComponent({
-    setup () {
-      const data = reactive({
-        count: 0
-      })
-      const double = computed(() => data.count * 2)
-      const increment = () => {
-        data.count++
-      }
-      const { calculateSun } = useCalculator()
-      
-      return { ...data, double, increment, calculateSun }
-    }
-  })
-</script>
-
-```
-
-::right::
-
-# Class Component Syntax
-
-```vue
-<script lang="ts">
-  import Component from 'vue-class-component'
-  import Vue from 'vue'
-  
-  @Component
-  export default class Counter extends Vue {
-    count: number = 0
-    get double () {
-      return this.count * 2
-    }
-    increment () {
-      this.count++
-    }
-  }
-</script>
-
-```
----
-
-# Vue Docs
-
-<img src="/vue-docs.png" alt="Vue Docs" width="750" />
+- [Vue Docs](https://vuejs.org/guide/introduction.html)
+- [Vuetify Component Library](https://vuetifyjs.com/en/)
+- [Nuxt](https://nuxt.com/docs/getting-started/introduction)
+- [Style Guide](https://vuejs.org/style-guide/)
 
 ---
 
 # Demo Time 😔
 
-- ### Install NodeJS 12+
+- ### Install NodeJS 14+
 - ### Clone Repo:
   - `git clone https://github.com/TobiasBester/vue-training.git`
 - ### Install dependencies
   - #### Go to project directory
-  - #### `cd ./vue-training-app`
+  - #### `cd ./vue-training-2023`
   - #### `npm install`
 - ### `npm run dev`
-- ### Open `localhost:3000`
+- ### Open `http://127.0.0.1:3000/`
+- ### If using VSCode, install Volar plugin
+- ### If using IntelliJ Ultimate, install Vue plugin
 
 ---
 
 # Project Structure
 
-- ##### `index.html`: App entry point
-- ##### `package.json` and config files
+- `package.json` and config files
+- `index.html`: App entry point
 - #### `/public` - Served at web page root
   - Used for browser icons, robots.txt, etc.
-- #### `/src` - Where the code at
+- #### `/src` - Where the code lives
   - `main.ts` - Where Vue is initialized and mounted. Also, plugins and libraries
   - `App.vue` - Root Vue component. Top level layout, styles, and logic
   - `/assets` - Static content, e.g. images and styles
   - `/views` - Page-level components - ideally one per route
   - `/components` - Used within views, composable, re-usable, simple/complex
   - `/router/index.ts` - Routing config
-  - Other folders: `/composables`, `/store`, `/models`
+  - `/stores` - Pinia/Vuex Global Store
 
 ---
 
@@ -281,6 +235,19 @@ layout: two-cols
 - ### Provide structure for component content
 - ### File extension should be ".vue`
 
+```vue
+<template>
+  <h1>Template elements go here</h1>
+</template>
+
+<script setup lang="ts">
+const msg = 'JS/TS goes here'
+</script>
+
+<style scoped>
+.css-goes-here {}
+</style>
+```
 ---
 layout: two-cols
 ---
@@ -288,6 +255,10 @@ layout: two-cols
 # Declarative Rendering and Reactivity
 
 - #### Vue's template syntax allows us to extend HTML with JavaScript
+- #### We can create **reactive data** and use it in our template
+- #### Reactive data variables trigger updates upon change
+
+<div v-click="1">
 
 ```vue
 <template>
@@ -295,16 +266,17 @@ layout: two-cols
 </template>
 ```
 
-- #### We can create **reactive data** and use it in our template
-- #### Reactive data variables trigger updates upon change
+</div>
 
-```text {none|all}
-TODO: In HomeView.vue, add a `ref` named `numIncorrect`
-with a value of 0. Replace the "0" text in the template
-under "Incorrect:" with `numIncorrect`'s value
-```
+<div v-click="3">
+
+### TODO: 1
+
+</div>
 
 ::right::
+
+<div v-click="2">
 
 ### 2️⃣
 
@@ -333,6 +305,7 @@ under "Incorrect:" with `numIncorrect`'s value
   console.log(counter.value)  // 0
 </script>
 ```
+</div>
 
 ---
 layout: two-cols
@@ -343,10 +316,15 @@ layout: two-cols
 - #### Like with text interpolation, we can bind attributes to reactive data
 
 ```html
+  <button id="stringId">
+    Normal button
+  </button>
   <div v-bind:id="dynamicId">
     Content of element {{ dynamicId }}
   </div>
 ```
+
+<div v-click="1">
 
 - #### The `v-bind` directive can be replaced with the shorthand:
 
@@ -356,7 +334,11 @@ layout: two-cols
   </div>
 ```
 
+</div>
+
 ::right::
+
+<div v-click="2">
 
 - #### Data can be bound for any element's attributes, props, class, and style
 
@@ -365,6 +347,28 @@ layout: two-cols
   :class="hasError ? 'form-error' : 'form-ok'"
 />
 ```
+
+</div>
+
+<div v-click="3">
+
+- #### Boolean attributes do not need 'true'
+
+```html
+<input disabled />
+<!-- ⬆ is the same as ⬇ -->
+<input :disabled="true" />
+
+<input :disabled="false" />
+```
+
+</div>
+
+<div v-click="4">
+
+### TODO: 2 (ChirperFeed2.vue)
+
+</div>
 
 ---
 layout: two-cols
@@ -384,7 +388,7 @@ layout: two-cols
       increment () {
         this.counter += 1 // Notice use of "this"
       },
-      doubleInput (num) {
+      doubleInput: function (num) {
         return num * 2
       }
     }
@@ -405,9 +409,12 @@ layout: two-cols
   const increment = () => {
     counter.value += 1
   }
-  const doubleInput = (num) => num * 2
+  const logInput = (e) =>
+          console.log(e.target.value)
 </script>
 ```
+
+<div v-click="1">
 
 - #### Functions can be bound to event listeners
 
@@ -416,18 +423,16 @@ layout: two-cols
     Increase me
   </button>
 
-  <input @input="recordKeystroke" />
+  <input @input="logInput" />
 ```
 
-```text {none|all}
-TODO: Create method `incCorrect` which increases
-numCorrect by one. Bind the method to the button
-with text "CLICK ME"
-```
+</div>
 
----
+<div v-click="2">
 
-## Checkout branch `/1-Reactive-data-in-template`
+### TODO: 3 (ChirperFeed3.vue)
+
+</div>
 
 ---
 layout: two-cols
@@ -452,20 +457,23 @@ layout: two-cols
 
 ::right::
 
+<div v-click="1">
+
+- #### Element input will update the `text` value
+- #### External `text` value changes will reflect on the input
 - #### Can be replaced with `v-model` - syntactic sugar
 
 ```html
 <input v-model="text" />
 ```
 
-- #### Element input will update the `text` value
-- #### External `text` value changes will reflect on the input
+</div>
 
-```text {none|all}
-TODO: Add ref named `playerName` with initial
-value '' and two-way bind it to the
-"Player Name" base-input with `v-model`
-```
+<div v-click="2">
+
+### TODO: 4 (ChirperFeed4.vue)
+
+</div>
 
 ---
 
@@ -478,15 +486,21 @@ value '' and two-way bind it to the
   <h1 v-if="mark > 80">DISTINCTION</h1>
   <h1 v-else-if="mark >= 50">WELL DONE</h1>
   <h1 v-else>YOU FAILED 😡</h1>
+  
+  <h2>Subjects:</h2>
+  <p v-if="takesEnglish">English</p>
+  <p v-if="takesMath">Math</p>
+  <p v-if="takesAccounting">Accounting</p>
 </template>
 ```
 
 <br />
 
-```text {none|all}
-TODO: Render the Start button only if `timeRemaining` equals PLAY_TIME_SECONDS, else,
-render the Stop button
-```
+<div v-click="1">
+
+### TODO: 5 (ChirperFeed5.vue)
+
+</div>
 
 ---
 
@@ -505,11 +519,15 @@ render the Stop button
 </template>
 ```
 
-- #### Lists are re-rendered when the reactive array is mutated
+- #### Lists are re-rendered when the reactive array is [mutated](https://www.sitepoint.com/immutable-array-methods-javascript/)
 
----
+<br />
 
-## Checkout branch `/2-Form-bindings-and-rendering`
+<div v-click="1">
+
+### TODO: 6 (ChirperFeed6.vue)
+
+</div>
 
 ---
 layout: two-cols
@@ -517,9 +535,11 @@ layout: two-cols
 
 # Computed Properties
 
-- #### Like a `ref` variable computed from other data
+- #### Read-only data variables computed from other data
 - #### Will track changes of dependencies and re-compute
 - #### Will trigger updates if its value changes
+
+<div v-click="1">
 
 ### 2️⃣
 ```javascript
@@ -539,7 +559,11 @@ export default {
 }
 ```
 
+</div>
+
 ::right::
+
+<div v-click="1">
 
 ### 3️⃣
 ```vue
@@ -551,16 +575,13 @@ export default {
 </script>
 ```
 
-```text {none|all}
-TODO:
-  Copy "CLICK ME" button and paste it below original
-  Change color of new button to "red"
-  Add method `incIncorrect` which add 1 to `numIncorrect`
-  Bind new button click to 'incIncorrect'
-  Add computed prop  `score` with formula
-    score = numCorrect - (numIncorrect * 5)
-  Render `score` value under "Score:" block
-```
+</div>
+
+<div v-click="2">
+
+### TODO: 7 (ChirperFeed7.vue)
+
+</div>
 
 ---
 
@@ -605,6 +626,36 @@ export default {
 ```
 
 ---
+
+# Template Refs
+
+- #### Reference elements in a template
+
+###
+```html
+<h1 ref="myHeader">{{ header }}</h1>
+```
+
+### 2️⃣
+```javascript
+function updateHeader (newVal) {
+  this.$refs.myHeader.text = newVal
+}
+```
+
+### 3️⃣
+```vue
+<script setup>
+  // ...
+  const myHeader = ref(null)
+
+  const updateHeader = (newVal) => {
+    myHeader.text = newVal
+  }
+</script>
+```
+
+---
 layout: two-cols
 ---
 
@@ -615,10 +666,14 @@ layout: two-cols
 - #### Nested objects can be shallow or deep-watched
 - #### Useful for debugging
 
+<div v-click="1">
+
 ### 2️⃣
 ```javascript
 export default {
-  // ...
+  data: () => {
+    highScores: []
+  },
   watch: {
     highScores (newVal, oldVal) {
       const sizeDiff = newVal.length - oldVal.length
@@ -627,8 +682,12 @@ export default {
   }
 }
 ```
+
+</div>
+
 ::right::
 
+<div v-click="1">
 
 ### 3️⃣
 ```vue
@@ -641,20 +700,24 @@ export default {
 </script>
 ```
 
+</div>
+
+<div v-click="2">
+
 - #### Wrapped data needs to use a function to specify watched variable:
 ```javascript
 watch(() => counter.value, (newVal) => {/*...*/})
 ```
 
-```text {none|all}
-TODO: Add watcher to `score` value
- - If new value is < 0, console log 'GAME OVER'
- - If new value is > 100, console log 'GO OFF KING/QUEEN'
-```
+</div>
 
----
+<br />
 
-## Checkout branch `/3-Computed-properties`
+<div v-click="3">
+
+### TODO: 8 (ChirperFeed8.vue)
+
+</div>
 
 ---
 
@@ -673,12 +736,20 @@ TODO: Add watcher to `score` value
   import BaseBtn from '@/components/base/BaseBtn.vue'
   
   export default {
-    components: {
+    components: {   // Not required in <script setup>
       BaseBtn
     }
   }
 </script>
 ```
+
+<div v-click="1">
+
+<br />
+
+### TODO: 9 (ChirperFeed9.vue)
+
+</div>
 
 ---
 layout: two-cols
@@ -689,6 +760,23 @@ layout: two-cols
 - #### Used to pass data from parent to child component
 - #### Prop data type can be specified
   - Object, String, Number, Array, Boolean, Function, Promise
+- #### Props shouldn't be modified. Update value from parent component
+
+<div v-click="2">
+
+<br />
+
+### TODO: 10 (ChirperFeed10.vue)
+
+</div>
+
+:: right ::
+
+<div v-click="1">
+
+```html
+<custom-list label="Sports" :items="sportsList" />
+```
 
 ### 2️⃣
 ```javascript
@@ -707,14 +795,17 @@ layout: two-cols
   }
 ```
 
-:: right ::
-
 ### 3️⃣
 ```vue
 <script setup>
   const props = defineProps({/*...*/})
+
+  const oldStudents = computed(() =>
+          props.students.filter(s => s.age > 50))
 </script>
 ```
+
+</div>
 
 ---
 layout: two-cols
@@ -745,6 +836,8 @@ layout: two-cols
 
 ::right::
 
+<div v-click="1">
+
 ### 2️⃣
 ```vue
 <script>
@@ -758,25 +851,111 @@ layout: two-cols
 </script>
 ```
 
+### 3️⃣
+```vue
+<script setup>
+  const emit = defineEmits(['submit'])
+
+  const submitToParent = (formData) => {
+    emit('submit', formData) 
+  }
+</script>
+```
+
+</div>
+
+<div v-click="2">
+
+### TODO: 11 - ChirpFeedCard.vue
+### TODO: 12 - ChirperFeed12.vue
+
+</div>
+
+---
+layout: two-cols
+---
+
+# Slots
+
+- #### Props are used to pass _data_ into components
+- #### Slots are used to pass _template_ into components
+- #### For multiple slots, use names. "default" is given if none is defined
+
+<div v-click="1">
+
+```vue
+<!-- BaseBtn.vue -->
+<template>
+  <v-btn :color="color" :disabled="disabled">
+    <slot name="prepend-icon" />
+    <slot>{{ btnText }}</slot>
+  </v-btn>
+</template>
+```
+
+</div>
+
+::right::
+
+<div v-click="2">
+
+```html
+<!-- ParentComponent.vue -->
+<base-btn
+        color="red"
+        :disabled="false"
+        btnText="Text will appear as normal">
+  <template #prepend-icon>
+    <v-icon icon="mdi-home" />
+  </template>
+</base-btn>
+<!-- ...produces ⬇ -->
+<v-btn color="red" disabled="false">
+  Text will appear as normal
+</v-btn>
+```
+
+</div>
+
+<div v-click="3">
+
+```html
+<base-btn
+        color="red"
+        :disabled="false"
+        btnText="Text will appear as normal">
+  <h1>This will now appear in the slot</h1>
+</base-btn>
+<!-- ...produces ⬇ -->
+<v-btn color="red" disabled="false">
+  <h1>This will now appear in the slot</h1>
+</v-btn>
+```
+
+</div>
+
 ---
 
 # State Management
 
-- #### Vuex is the standard library
-- #### Pinia is the new, recommended library
+- #### Previous de-facto: Vuex | New normal: Pinia
+- #### Share data across multiple components
+- #### Avoid having to pass data along component chain
 
-<img src="/vue-stores.png" alt="Components and a Store" />
+<img src="/vue-stores.png" alt="Components and a Store" width="650" />
 
 ---
 
 # Composition Functions
 
+- #### Reuse logic across multiple components
 - #### Act exactly like components minus the template and styles
 - #### Can accept params
 - #### Can keep instance and global state
 - #### Should be small and specific
 
 ```javascript
+// useUppercase.js
 export default function (name) {
   const internalName = ref(name)
   const uppercase = computed(() => name.toUpperCase())
